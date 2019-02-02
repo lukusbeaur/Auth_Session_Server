@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -8,6 +9,10 @@ import (
 )
 
 var cache redis.Conn
+var users = map[string]string{
+	"User1": "password1",
+	"User2": "password2",
+}
 
 func main() {
 	initCache()
@@ -16,7 +21,7 @@ func main() {
 	http.HandleFunc("/welcome", Welcome)
 
 	//start the server
-	log.Fatal(http.ListenAndServe("8080", nil))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 func initCache() {
@@ -30,9 +35,12 @@ func initCache() {
 	cache = conn
 }
 
+//Welcome func is the controller for the welcome screeen
 func Welcome(w http.ResponseWriter, r *http.Request) {
-
+	fmt.Print("Hello from Welcome Func")
 }
-func Signin(w http.ResponseWriter, r *http.Request) {
 
+//Signin func is the controller for the sign in screen
+func Signin(w http.ResponseWriter, r *http.Request) {
+	fmt.Print("Hello from the Sign in Func")
 }
